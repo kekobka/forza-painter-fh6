@@ -1,0 +1,9 @@
+# Rust build output (multi-GB — never commit)
+/target/
+
+# Runtime FH6 session cache (written by the probe)
+fh6-session.json
+
+# stray Python bytecode (no Python here, just in case)
+__pycache__/
+*.pyc

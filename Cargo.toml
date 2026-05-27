@@ -1,0 +1,40 @@
+[package]
+name = "forza-painter"
+version = "0.1.0"
+edition = "2021"
+description = "Single-exe Forza Horizon vinyl helper: GPU geometry generator + live-game importer"
+
+[[bin]]
+name = "forza-painter"
+path = "src/main.rs"
+
+[dependencies]
+wgpu = "22"
+pollster = "0.3"
+bytemuck = { version = "1", features = ["derive"] }
+rand = "0.8"
+image = { version = "0.25", default-features = false, features = ["png", "jpeg", "bmp"] }
+eframe = { version = "0.28", default-features = false, features = ["glow", "default_fonts"] }
+egui = "0.28"
+rfd = "0.14"
+sysinfo = "0.31"
+serde_json = "1"
+
+# Windows-only: live process memory read/write for the importer/probe.
+[target.'cfg(windows)'.dependencies]
+windows = { version = "0.58", features = [
+    "Win32_Foundation",
+    "Win32_System_Threading",
+    "Win32_System_Memory",
+    "Win32_System_Diagnostics_Debug",
+    "Win32_System_ProcessStatus",
+    "Win32_Security",
+] }
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1
+
+[dev-dependencies]
+naga = "22"
